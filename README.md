@@ -1,4 +1,4 @@
-# summer-framework
+# Summer Framework
 
 [![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsummer-os%2Fsummer-framework.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsummer-os%2Fsummer-framework?ref=badge_shield)
 
