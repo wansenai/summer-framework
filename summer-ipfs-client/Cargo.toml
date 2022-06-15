@@ -1,0 +1,18 @@
+[package]
+name = "summer-ipfs-client"
+version = "0.1.0"
+edition = "2021"
+authors = ["James Zow <jameszow@163.com>"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+serde = { version = "1", features = ["derive"] }
+serde_json = "1.0"
+serde_derive = "1.0"
+tokio = { version = "1.18.2", features = ["full"] }
+async-trait = "0.1.53"
+log = "0.4.17"
+reqwest = "0.9.0"
+failure = "0.1"
+base64 = "0.13.0"

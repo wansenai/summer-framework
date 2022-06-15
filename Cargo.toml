@@ -1,0 +1,5 @@
+[workspace]
+members = [
+  "summer-consensus-algo",
+  "summer-ipfs-client",
+]
