@@ -7,15 +7,16 @@ edition = "2021"
 
 [[bin]]
 name="rpc-server"
-path="src/grpc/server.rs"
+path="src/server.rs"
 
 [[bin]]
 name="rpc-client"
-path="src/grpc/client.rs"
+path="src/client.rs"
 
 [dependencies]
 tonic = "0.7.2"
-tokio = "1.19.2"
+tokio = { version = "1.19.2",features = ["macros", "rt-multi-thread"]}
+prost = "0.10.4"
 
 [build-dependencies]
 tonic-build = "0.7.2"

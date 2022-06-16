@@ -1,0 +1,38 @@
+syntax = "proto3";
+package rpcservice;
+
+service AppendEntries{
+    rpc Request (AppendEntriesRequest) returns (AppendEntriesReply);
+}
+
+message AppendEntriesRequest{
+    int32 term = 1;
+    string leader_id = 2;
+    int32 prev_log_index = 3;
+    int32 prev_log_term = 4;
+    repeated string entries = 5;
+    int32 leader_commit = 6;
+
+}
+
+message AppendEntriesReply{
+    string term = 1;
+    string success = 2;
+}
+
+
+service RequestVote{
+    rpc Vote (RequestVoteRequest) returns (RequestVoteReply);
+}
+
+message RequestVoteRequest{
+    int32 term = 1;
+    string candidate_id = 2;
+    int32 last_log_index = 3;
+    int32 last_log_term = 4;
+}
+
+message RequestVoteReply{
+    int32 term = 1;
+    string vote_granted = 2;
+}
