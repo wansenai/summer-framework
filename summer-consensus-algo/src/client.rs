@@ -1,5 +1,5 @@
 use raft_rpc::append_entries_client::{AppendEntriesClient};
-use raft_rpc::{AppendEntriesRequest, AppendEntriesReply};
+use raft_rpc::{AppendEntriesRequest};
 
 pub mod raft_rpc {
     tonic::include_proto!("rpcservice");
@@ -7,7 +7,7 @@ pub mod raft_rpc {
 
 #[tokio::main]
 async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let mut client = AppendEntriesClient::connect("http://[::1]:50051").await?;
+    let mut client = AppendEntriesClient::connect("http://127.0.0.1:50051").await?;
 
     let request = tonic::Request::new(AppendEntriesRequest {
         term : 1.into(),
