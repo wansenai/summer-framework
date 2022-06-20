@@ -1,44 +1,79 @@
 //声明节点状态机
-struct Follower<T,U>{
-    CurrentTerm:T,
-    VoteFor:Option<U>,
-    Log:Vec<U>,
-    CommitIndex:Option<T>,
-    LastApplied:Option<T>
+#[derive(Debug)]
+struct PersistentState<T>{
+    current_term:T,
+    vote_for:Option<String>,
+    log:Vec<String>,
+    commit_index:Option<T>,
+    last_applied:Option<T>
 }
-struct Candidate<T,U>{
-    CurrentTerm:T,
-    VoteFor:Option<U>,
-    Log:Vec<U>,
-    CommitIndex:Option<T>,
-    LastApplied:Option<T>
+#[derive(Debug)]
+struct LeaderState<T>{
+    next_index:T,
+    match_index:T
 }
-struct Leader<T,U>{
-    CurrentTerm:T,
-    VoteFor:Option<U>,
-    Log:Vec<U>,
-    CommitIndex:Option<T>,
-    LastApplied:Option<T>,
-    NextIndex:T,
-    MatchIndex:T
+#[derive(Debug)]
+struct Follower<T>{
+    persistent_state:PersistentState<T>
 }
-trait New{
-    fn new()->Self;
+#[derive(Debug)]
+struct Candidate<T>{
+    persistent_state:PersistentState<T>
 }
-trait StateChange{
-    fn upgrade(&mut self)->Self;
-    fn downgrade(&mut self)->Self;
+#[derive(Debug)]
+struct Leader<T>{
+    persistent_state:PersistentState<T>,
+    leader_state:LeaderState<usize>
 }
 
-impl<T,U> New for Follower<T,U>{
-    type Output = Follower<T,U>;
-    fn new()->Self{
+impl<T> Follower<T>{
+    fn new(init_value:T)->Self{
         Follower{
-            CurrentTerm:0,
-            VoteFor:None,
-            Log:Vec::new(),
-            CommitIndex:None,
-            LastApplied:None
+            persistent_state:PersistentState{
+                current_term:init_value,
+                vote_for:None,
+                log:Vec::new(),
+                commit_index:None,
+                last_applied:None
+            }
         }
     }
+}
+
+impl<T> Follower<T>{
+    fn upgrade(self)->Candidate<T>{
+        Candidate{
+            persistent_state:self.persistent_state
+        }
+    }
+}
+
+impl<T> Candidate<T>{
+    fn upgrade(self)->Leader<T>{
+        Leader{
+            leader_state:LeaderState{
+                next_index:self.persistent_state.log.len(),
+                match_index:self.persistent_state.log.len() - 1
+            },
+            persistent_state:self.persistent_state
+        }
+    }
+
+    fn downgrade(self)->Follower<T>{
+        Follower{
+            persistent_state:self.persistent_state
+        }
+    }
+}
+
+impl<T> Leader<T>{
+    fn downgrade(self)->Follower<T>{
+        Follower { 
+            persistent_state:self.persistent_state 
+        }
+    }
+}
+
+fn main(){
+    println!("{:?}",Follower::new(0));
 }
