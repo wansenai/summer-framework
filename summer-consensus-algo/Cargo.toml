@@ -15,7 +15,7 @@ path="src/client.rs"
 
 [[bin]]
 name="node-init"
-path="src/state.rs"
+path="src/init.rs"
 
 [dependencies]
 tonic = "0.7.2"

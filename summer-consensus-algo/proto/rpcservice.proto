@@ -6,12 +6,12 @@ service AppendEntries{
 }
 
 message AppendEntriesRequest{
-    int32 term = 1;
+    uint32 term = 1;
     string leader_id = 2;
-    int32 prev_log_index = 3;
-    int32 prev_log_term = 4;
+    uint32 prev_log_index = 3;
+    uint32 prev_log_term = 4;
     repeated string entries = 5;
-    int32 leader_commit = 6;
+    uint32 leader_commit = 6;
 
 }
 
