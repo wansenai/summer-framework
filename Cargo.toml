@@ -2,5 +2,4 @@
 members = [
   "summer-consensus-algo",
   "summer-ipfs-client",
-  "summer-code-generate",
 ]
